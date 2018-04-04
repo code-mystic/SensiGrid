@@ -17,7 +17,6 @@ Very basic usage - through conventional script inclusion :
         var grid;
         window.onload = function() {
             grid = new SensiGrid('table_container', 500, 80, './data/JIRA-sample.csv');
-            //debugger;
             grid.caption = 'A basic Table';
         }
         
