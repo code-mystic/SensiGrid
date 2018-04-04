@@ -1,0 +1,11 @@
+{
+    "presets": ["env"],
+    /*
+        Babel 6 changed some behavior 
+        by not doing module.exports = exports['default'] 
+        anymore in the modules transforms.
+        You can use babel-plugin-add-module-exports, 
+        so that updating to Babel 6 isn't a breaking change 
+    */
+    "plugins": ["babel-plugin-add-module-exports"]
+}

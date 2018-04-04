@@ -1,0 +1,8 @@
+Issue Type,Issue key,Issue id,Summary,Created,Sprint,Sprint,Fix Version/s,Status,Assignee,Reporter,Custom field (Reviewer)
+Task,RED-7087,60003,documentation of animation manager,26/Mar/18 2:48 PM,RED - Sprint 99,,3.13.0-beta.3,Open,anindyaghosh,anindyaghosh,rohit
+Task,RED-7086,60001,Make changes in RedRaphael for text bound fade in and fade out ,23/Mar/18 7:59 PM,RED - Sprint 99,,3.13.0-beta.3,Open,anindyaghosh,rahul.das,rohit
+Task,RED-7085,60000,Decide proper names of APIs,23/Mar/18 7:40 PM,RED - Sprint 99,,3.13.0-beta.3,Open,anindyaghosh,priyanjit,rohit
+Bug,RED-7074,59987,Need to hide consolidated tooltip on touch outside the chart in touch devices,23/Mar/18 12:21 PM,RED - Sprint 99,,3.13.0-beta.3,In Progress,anindyaghosh,arnabsaha,rohit
+Bug,RED-5811,55014,"In IE8, some data labels do not appear in msstackedcolumn2d when animation attribute is set to 1",03/Aug/17 6:12 PM,RED - Sprint 95,RED - Sprint 99,3.13.0-beta.3,Open,anindyaghosh,anindyaghosh,rohit
+Task,RED-5563,51208,"For all column and bar charts, all values are not showing in IE8",25/May/17 8:08 PM,RED - Sprint 99,,3.13.0-beta.3,Open,anindyaghosh,souvik.jana,rohit
+Task,RED-4882,47008,"Hovering over any plots, last or first plot will also hover for line and area charts when anchor-image is given ",20/Feb/17 3:18 PM,RED - Sprint 99,,3.13.0-beta.3,Open,anindyaghosh,souvik.jana,rohit

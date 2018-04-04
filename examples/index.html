@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>A simple SensiGrid example</title>
+        <link rel="stylesheet" href="css/style.css">
+        <style type="text/css">
+            #table_container {
+                position: absolute;
+                left: 80px;
+                top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="../output/SensiGrid.js"></script>
+        <script type="text/JavaScript">
+            var grid;
+            window.onload = function() {
+                grid = new SensiGrid('table_container', 500, 80, './data/JIRA-sample.csv');
+                //debugger;
+                grid.caption = 'A basic Table';
+            }
+            
+        </script>
+        <div id='table_container'></div>
+    </body>
+</html>
