@@ -9,8 +9,9 @@ Grid built on JS for rendering CSV data. Primarily for learning JS.
 * Exports in a [umd](https://github.com/umdjs/umd) format so your library works everywhere.
 
 ## Usage Specification
-```
-Very basic usage - through conventional script inclusion
+Very basic usage - through conventional script inclusion :
+
+```html
     <script src="../output/SensiGrid.js"></script>
     <script type="text/JavaScript">
         var grid;
