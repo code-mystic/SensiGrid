@@ -7,26 +7,23 @@ Grid built on JS for rendering CSV data. Primarily for learning JS.
 * Can render a GRID from a CSV file
 * ES6 as a source.
 * Exports in a [umd](https://github.com/umdjs/umd) format so your library works everywhere.
-* Usage Specification
+
+## Usage Specification
 ```
-// ES2015 module import
-import * as webpackNumbers from 'webpack-numbers';
-// CommonJS module require
-var webpackNumbers = require('webpack-numbers');
-// ...
-// ES2015 and CommonJS module use
-webpackNumbers.wordToNum('Two');
-// ...
-// AMD module require
-require(['webpackNumbers'], function ( webpackNumbers) {
-  // ...
-  // AMD module use
-  webpackNumbers.wordToNum('Two');
-  // ...
-});
+Very basic usage - through conventional script inclusion
+    <script src="../output/SensiGrid.js"></script>
+    <script type="text/JavaScript">
+        var grid;
+        window.onload = function() {
+            grid = new SensiGrid('table_container', 500, 80, './data/JIRA-sample.csv');
+            //debugger;
+            grid.caption = 'A basic Table';
+        }
+        
+    </script>
+    <div id='table_container'></div>
 ```
 * ES6 test setup with [Mocha](http://mochajs.org/) and [Chai](http://chaijs.com/).
-* Linting with [ESLint](http://eslint.org/).
 
 ## Process
 
@@ -40,17 +37,22 @@ ES6 source files
        |
   ready to use
      library
-  in umd format
 ```
 
 *Have in mind that you have to build your library before publishing. The files under the `output` folder are the ones that should be distributed.*
 
-## Getting started
+## Basic usage
+* Refer the `example` folder for a working sample
+* Completely customizable through CSS. look for the `style.css` in `css` folder under `example` folder.
+* CSS `class-names` are pre-fixed as of now.
+
+## Examples
+A complete working sample has been provided in the `example` folder.
 
 ## Scripts
 
 * `npm run build` - produces production version of your library under the `lib` folder
-* `npm run dev` - produces development version of your library and runs a watcher
+* `npm run dev` - produces development version of your library
 * `npm run test` - well ... it runs the tests :)
-* `npm run test:watch` - same as above but in a watch mode
+* `npm run start` - starts a local server (port: 8080) and watches the files 
 
