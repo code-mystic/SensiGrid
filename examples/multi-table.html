@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>A simple Multi-SensiGrid example</title>
+        <link rel="stylesheet" href="css/style.css">
+        <style type="text/css">
+            #table_container {
+                position: absolute;
+                left: 80px;
+                top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="../output/SensiGrid.js"></script>
+        <script type="text/JavaScript">
+            var grid_one, grid_two;
+            window.onload = function() {
+                grid_one = new SensiGrid('table_container_1', 500, 80, './data/basic.csv');
+                //debugger;
+                grid_one.caption = 'Our First Table';
+
+                grid_two = new SensiGrid('table_container_2', 500, 80, './data/basic.csv');
+                //debugger;
+                grid_two.caption = 'Our Second Table';
+            }
+            
+        </script>
+        <div id="table_container">
+            <div id='table_container_1'></div>
+            <div id='table_container_2'></div>
+        </div>
+        
+    </body>
+</html>
