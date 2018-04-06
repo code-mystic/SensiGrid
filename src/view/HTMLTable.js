@@ -172,8 +172,6 @@ export default class HTMLTable {
                 this._tableElem.append(table_row_elem);
             }
         }
-
-        console.log('Length of row elems : '+ this._table_row_arr.length);
     }
 
     /*
