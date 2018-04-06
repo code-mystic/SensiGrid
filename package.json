@@ -22,7 +22,7 @@
     "webpack-dev-server": "^3.1.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --open --env dev",
+    "start": "webpack-dev-server --open --env dev --devtool eval-cheap-module-source-map",
     "build": "webpack --env prod",
     "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
     "dev": "webpack --colors --progress --watch --env dev"
