@@ -16,6 +16,8 @@ p {
 Generic Styling, for Desktops/Laptops 
 */
 table { 
+    display: table;
+    /*table-layout: fixed;*/
 	width: 100%; 
 	border-collapse: collapse; 
 }
