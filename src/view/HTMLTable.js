@@ -146,7 +146,8 @@ export default class HTMLTable {
      * number of rows.
     */
     drawRows (rows_arr, start_index, count) {
-        let end_index,
+        let table_body = this._table_body = $('<tbody>'),
+            end_index,
             table_row_elem;
 
         if(!start_index) {
@@ -169,9 +170,12 @@ export default class HTMLTable {
                     let row_td = $('<td>').text(text);
                     table_row_elem.append(row_td);
                 })
-                this._tableElem.append(table_row_elem);
+                table_body.append(table_row_elem);
             }
+            this._tableElem.append(table_body);
         }
+
+        
     }
 
     /*
@@ -201,6 +205,7 @@ export default class HTMLTable {
         });
 
         delRows = [];
+        this._table_body.remove();
     }
 
 }
