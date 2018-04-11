@@ -73,7 +73,7 @@ export default class Table {
                 });
                 paginator.draw();
                 //set the active state of first button
-                paginator.activeIndex = 0;
+                paginator.activeIndex = 1;
             }
             
         }
