@@ -75,7 +75,6 @@ export default class Table {
                 //set the active state of first button
                 paginator.activeIndex = 1;
             }
-            
         }
         
     }

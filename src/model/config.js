@@ -13,7 +13,7 @@ export default {
             height: 400,
             data: [],
             css_class_name: 'sensi-table',
-            max_num_rows: 20
+            max_num_rows: 8
         },
         table_index_config: {
             css_class_name: 'sensi-table-index-container',

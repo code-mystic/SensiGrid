@@ -101,15 +101,16 @@ export default class HTMLTable {
     }
 
     draw () {
-        let table_elem = this._tableElem = $('<table>'),
+        let table_container_elem = $('<div>').attr('id', 'sensi-table-container'),
+        table_elem = this._tableElem = $('<table>'),
         table_caption_elem,
         table_header_elem,
         table_header_row_elem,
         table_header_elems = [],
         row_count;
         //Set width, height and style of the table
-        table_elem.width(this._width);
-        table_elem.height(this._height);
+        //table_elem.width(this._width);
+        //table_elem.height(this._height);
         table_elem.addClass(this._cssClassName);
         //Add Caption if available
         if(this._caption) {
@@ -138,7 +139,17 @@ export default class HTMLTable {
 
 
         //Append the table to the container elem
-        $('#'+this._container_id).append(table_elem);
+        table_container_elem.append(table_elem);
+        //Apply some global styles to the table container element
+        table_container_elem.css({
+            'overflow': 'hidden',
+            'width': this._width,
+            'height': this._height,
+            'overflow-x': 'auto',
+            'overflow-y': 'scroll'
+        });
+        //append the container to the provided dom elemnet
+        $('#'+this._container_id).append(table_container_elem);
     }
 
     /*

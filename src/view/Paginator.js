@@ -113,7 +113,6 @@ export default class Paginator extends CustomEvent {
         //if the number of required indices is greater than the 
         //max number of indices allowed. we need to add next and prev button
         //to scroll the pagination.
-        console.log(this._indices+' > '+this._max_no_pages);
         if(this._indices > this._max_no_pages) {
            
             //Create static buttons
