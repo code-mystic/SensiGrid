@@ -14,6 +14,9 @@ export default class SensiGrid {
 
         this._caption = '';
 
+        //column related properties
+        this._columns = []
+
         this.container = dc.container_id = container_id ? container_id : dc.container_id;
         this.width = d_tc.width = width ? width : d_tc.width;
         this.height = d_tc.height = height ? height : d_tc.height;
@@ -48,6 +51,16 @@ export default class SensiGrid {
 
     get caption () {
         return this._caption;
+    }
+
+    set columns (clmn_arr) {
+        let snsGrd = this;
+        if(clmn_arr.length > 0) {
+            clmn_arr.forEach(function(clmn, i) {
+                snsGrd._columns.push(clmn);
+            });
+            sensi_grid_config.defaults.table_config.columns = this._columns;
+        }
     }
 
     createTable(data) {

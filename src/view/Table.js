@@ -52,6 +52,7 @@ export default class Table {
             tb.caption = d_tc.caption;
             tb.headers = tbl_inst.headers;
             tb.rows = tbl_inst.rows;
+            tb.columns = d_tc.columns;
             tb.css_class_name = d_tc.css_class_name;
             tb.max_num_rows = d_tc.max_num_rows;
             //Draw the table

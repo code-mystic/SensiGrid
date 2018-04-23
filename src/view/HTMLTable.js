@@ -9,6 +9,7 @@ export default class HTMLTable {
         this._height;
         this._headers = [];
         this._rows = [];
+        this._columns = [];
         this._caption = '';
         this._cssClassName = '';
         this._max_num_rows = '';
@@ -48,6 +49,16 @@ export default class HTMLTable {
 
     get rows () {
         return this._rows;
+    }
+
+    set columns (clmns_arr) {
+        if(clmns_arr) {
+            this._columns = clmns_arr;
+        }
+    }
+
+    get columns () {
+        return this._columns;
     }
 
     set width (width) {
@@ -100,6 +111,16 @@ export default class HTMLTable {
         return this._max_num_rows;
     }
 
+    setCellStyle (cell, index) {
+       
+        let column = this._columns[index],
+            width = column && column.width;
+
+        if(!isNaN(width)) {
+            $(cell).css('width', width);
+        }
+    }
+
     draw () {
         let table_container_elem = $('<div>').attr('id', 'sensi-table-container'),
         table_elem = this._tableElem = $('<table>'),
@@ -123,6 +144,7 @@ export default class HTMLTable {
             table_header_row_elem = $('<tr>');
             this._headers.forEach(function(header, index) {
                 let tb_header = $('<th>').text(header);
+                this.setCellStyle(tb_header, index);
                 table_header_elems.push(tb_header);
                 table_header_row_elem.append(tb_header);
             }, this);
@@ -177,10 +199,11 @@ export default class HTMLTable {
                 //Store for easy retrieval
                 this._table_row_arr.push(table_row_elem);
                 //Now create the row content
-                row.forEach(function(text){
+                row.forEach(function(text, i){
                     let row_td = $('<td>').text(text);
+                    this.setCellStyle(row_td, i);
                     table_row_elem.append(row_td);
-                })
+                }, this);
                 table_body.append(table_row_elem);
             }
             this._tableElem.append(table_body);

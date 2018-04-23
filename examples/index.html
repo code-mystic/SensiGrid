@@ -7,6 +7,9 @@
                 position: absolute;
                 left: 80px;
                 top: 20px;
+                overflow-x: auto;
+                overflow-y: scroll;
+                max-width: 80%;
             }
         </style>
     </head>
@@ -18,6 +21,20 @@
                 grid = new SensiGrid('table_container', '100%', 600, './data/train_details.csv');
                 //debugger;
                 grid.caption = 'A basic Table';
+                grid.columns = [
+                    {name: 'Train No', type: 'number', width: '40'},
+                    {name: 'Train Name', type: 'text', width: '160'},
+                    {name: 'SEQ', type: 'number', width: '40'},
+                    {name: 'Station Code', type: 'text', width: '70'},
+                    {name: 'Station Name', type: 'text', width: '140'},
+                    {name: 'Arrival Time', type: 'Date-Time', width: '100'},
+                    {name: 'Departure Time', type: 'Date-Time', width: '100'},
+                    {name: 'Distance', type: 'Number', width: '70'},
+                    {name: 'Source Station', type: 'text', width: '100'},
+                    {name: 'Source Station Name', type: 'Text', width: '180'},
+                    {name: 'Destination Station', type: 'text', width: '100'},
+                    {name: 'Destination Station Name', type: 'Text', width: '180'}
+                ];
             }
             
         </script>

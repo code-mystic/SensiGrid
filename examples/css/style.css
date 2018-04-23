@@ -40,8 +40,13 @@ th {
 td, th { 
 	padding: 6px; 
 	border: 1px solid #ccc; 
-	text-align: left; 
+    text-align: left; 
+    overflow: hidden;
 }
+
+
+
+
 
 .sensi-table-index-container {
 	display: inline-block;
