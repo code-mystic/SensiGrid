@@ -30,7 +30,7 @@ export default class SensiGrid {
             //listen for the data parsing complete event
             csv.addEventListener('dataParsed', function(json){
                 console.log("DATA LOADED AND PARSED : ");
-                console.log(json);
+                console.log(json.data);
                 d_tc.data = json.data;
                 sgrid.createTable(d_tc.data);
             });

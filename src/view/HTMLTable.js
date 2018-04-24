@@ -15,7 +15,8 @@ export default class HTMLTable {
         this._max_num_rows = '';
 
         //UI elements
-        this._tableElem = ''
+        this._headerTable = '';
+        this._tableElem = '';
 
         //UI Element storage
         this._table_row_arr = [];
@@ -121,49 +122,91 @@ export default class HTMLTable {
         }
     }
 
-    draw () {
-        let table_container_elem = $('<div>').attr('id', 'sensi-table-container'),
-        table_elem = this._tableElem = $('<table>'),
-        table_caption_elem,
-        table_header_elem,
-        table_header_row_elem,
-        table_header_elems = [],
-        row_count;
-        //Set width, height and style of the table
-        //table_elem.width(this._width);
-        //table_elem.height(this._height);
-        table_elem.addClass(this._cssClassName);
-        //Add Caption if available
-        if(this._caption) {
-            table_caption_elem = $('<caption>').text(this._caption);
-            table_elem.append(table_caption_elem);
+    drawCaption (caption, table_to_append) {
+        let table_caption_elem;
+        if(caption) {
+            table_caption_elem = $('<h3>').text(caption);
+            table_to_append.append(table_caption_elem);
         }
-        //Add headers if avaialble
-        if(this._headers) {
-            table_header_elem = $('<thead>');
-            table_header_row_elem = $('<tr>');
-            this._headers.forEach(function(header, index) {
+    }
+
+    drawHeaders (headers, isFiltering, container_to_append) {
+        let headerTable = this._headerTable = $('<table>').attr('display', 'table'),
+            thead_elem,
+            tr_elem;
+
+        if(headers) {
+            thead_elem = $('<thead>');
+            tr_elem = $('<tr>');
+            headers.forEach(function(header, index) {
                 let tb_header = $('<th>').text(header);
+                //set column specific style
                 this.setCellStyle(tb_header, index);
-                table_header_elems.push(tb_header);
-                table_header_row_elem.append(tb_header);
+                tr_elem.append(tb_header);
             }, this);
             //Append the row to header
-            table_header_elem.append(table_header_row_elem)
+            thead_elem.append(tr_elem)
             //Append the header row to table
-            table_elem.append(table_header_elem);
+            headerTable.append(thead_elem);
         }
 
-        row_count = (this._rows.length > this._max_num_rows) ?
-                        this._max_num_rows : this._rows.length;
+        //append the header table to the container
+        container_to_append.append(headerTable);
+    }
 
-        this.drawRows(this._rows,0,row_count)
+    darwTableBody (rows, container_to_append) {
+        let table_elem = this._tableElem = $('<table>'),
+        row_count;
 
+        //Set width, height and style of the table
+        table_elem.addClass(this._cssClassName);
+        table_elem.css({
+            'table-layout': 'fixed',
+            'display': 'table'
+        });
+
+        row_count = (rows.length > this._max_num_rows) ?
+                        this._max_num_rows : rows.length;
+
+        this.drawRows(this._rows,0,row_count);
 
         //Append the table to the container elem
-        table_container_elem.append(table_elem);
+        container_to_append.append(table_elem);
+    }
+
+    draw () {
+        let table_container_elem = $('<div>').attr('id', 'sensi-grid'),
+            caption_container_elem = $('<div>').attr('id', 'sensi-grid-caption'),
+            header_container_elem = $('<div>').attr('id', 'sensi-grid-header'),
+            body_container_elem = $('<div>').attr('id', 'sensi-grid-body');
+        
+        //Add Caption if available
+        this.drawCaption(this._caption, caption_container_elem);
+        //Add headers if avaialble
+        this.drawHeaders(this._headers, this._isFilter, header_container_elem);
+        //Add the rows or the main table rows
+        this.darwTableBody(this._rows, body_container_elem);
+        
+        //append the caption container
+        table_container_elem.append(caption_container_elem);
+        //set style of the header container
+       /* header_container_elem.css({
+            'overflow-x': 'hidden',
+            'overflow-y': 'scroll' 
+        });*/
+        //append the header conatiner
+        table_container_elem.append(header_container_elem);
+        //set style of the body container
+        /*body_container_elem.css({
+            'overflow-x': 'auto',
+            'overflow-y': 'scroll'
+        });*/
+        //append the body or main rows
+        table_container_elem.append(body_container_elem);
+        
         //Apply some global styles to the table container element
         table_container_elem.css({
+            'position': 'relative',
             'overflow': 'hidden',
             'width': this._width,
             'height': this._height,
