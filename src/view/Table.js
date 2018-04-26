@@ -7,7 +7,10 @@ import Paginator from './Paginator.js';
 export default class Table {
 
     constructor() {
+        //this is the original data 
         this._data = [];
+        this._htmlTable;
+        this._activeTable;
     }
 
     get data () {
@@ -21,26 +24,35 @@ export default class Table {
         }
     }
 
-    draw() {
+    processData (data_arr) {
         let tbl_inst = this,
-        cd = config.defaults,
-        d_tc = cd.table_config,
-        tb, paginator;
+            data_obj = {
+                headers: [],
+                rows: []
+            };
 
-
-        tbl_inst.headers = [];
-        tbl_inst.rows = [];
-
-        this._data.forEach(function(row, index) {
+        data_arr.forEach(function(row, index) {
             //to_do: Here we are hardcoded assuming that the first row
             //will always be the header. All tables may not contain headers.
             if(index === 0) {
                 //As header row is always a single row
-                tbl_inst.headers = row;
+                data_obj.headers = row;
             } else {
-                tbl_inst.rows.push(row);
+                data_obj.rows.push(row);
             }
         }, tbl_inst);
+
+        return data_obj;
+    }
+
+    draw() {
+        let tbl_inst = this,
+        cd = config.defaults,
+        d_tc = cd.table_config,
+        tb, paginator,
+        processsedData;
+
+        processsedData = this.processData(this._data)
         //Now instantiate the type of table required.
         // HTML vs Canvas etc.
         if(config.defaults.render_type === 'HTML') {
@@ -50,8 +62,8 @@ export default class Table {
             tb.width = d_tc.width;
             tb.height = d_tc.height;
             tb.caption = d_tc.caption;
-            tb.headers = tbl_inst.headers;
-            tb.rows = tbl_inst.rows;
+            tb.headers = processsedData.headers;
+            tb.rows = processsedData.rows;
             tb.columns = d_tc.columns;
             tb.css_class_name = d_tc.css_class_name;
             tb.max_num_rows = d_tc.max_num_rows;
@@ -59,8 +71,8 @@ export default class Table {
             tb.draw();
             //If the number of rows exceed the max number of rows
             //We have to create the indexes
-            if(tbl_inst.rows.length > tb.max_num_rows) {
-                let num_indices = Math.ceil(tbl_inst.rows.length/tb.max_num_rows);
+            if(processsedData.rows.length > tb.max_num_rows) {
+                let num_indices = Math.ceil(processsedData.rows.length/tb.max_num_rows);
                 //If specific index container defined then use that DOM element
                 //Or append at the table conatiner DOM element
                 let index_container = cd.index_container_id ? cd.index_container_id : cd.container_id;
@@ -76,6 +88,8 @@ export default class Table {
                 //set the active state of first button
                 paginator.activeIndex = 1;
             }
+
+            this._activeTable = this._htmlTable = tb;
         }
         
     }

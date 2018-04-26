@@ -30,6 +30,19 @@ export default class CSVProcessor extends CustomEvent {
         this.data_config = {};
         //if the data is not empty start processing
         if(data) {
+            this.loadData(data);
+        }
+        
+       // debugger;
+    }
+
+    /**
+     * loadData decides whether the data is provided
+     * as URL or as text data and then sent it for 
+     * loading and parsing.
+     */
+    loadData (data) {
+        if(data) {
             this.data_config.rawData = data;
             if(detectData(data) === 'URL') {
                 this.data_config.rawDataIsURL = true;
@@ -39,7 +52,6 @@ export default class CSVProcessor extends CustomEvent {
 
             this.parseCSVtoJSON();
         }
-       // debugger;
     }
 
     /**

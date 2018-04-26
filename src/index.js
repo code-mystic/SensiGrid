@@ -6,11 +6,13 @@ import Table from './view/Table.js';
 export default class SensiGrid {
 
     constructor (container_id, width, height, data) {
-        let sgrid = this,
-            dc = sensi_grid_config.defaults,
+        let dc = sensi_grid_config.defaults,
             d_tc = dc.table_config,
             tableInstances = sensi_grid_config.instances,
             csv;
+
+        //The refernce to the table
+        this._table;
 
         this._caption = '';
 
@@ -26,18 +28,7 @@ export default class SensiGrid {
 
         // if data is available initiate data loading
         if(data !== undefined) {
-            csv = new CSVProcessor(data);
-            //listen for the data parsing complete event
-            csv.addEventListener('dataParsed', function(json){
-                console.log("DATA LOADED AND PARSED : ");
-                console.log(json.data);
-                d_tc.data = json.data;
-                sgrid.createTable(d_tc.data);
-            });
-            csv.addEventListener('dataParseError', function(err){
-                console.log('Error in data loading...'+err)
-            })
-            
+            this._setCSVProcessor(data);
         }
     }
 
@@ -63,6 +54,24 @@ export default class SensiGrid {
         }
     }
 
+    _setCSVProcessor(data) {
+        let sgrid = this,
+            dc = sensi_grid_config.defaults,
+            d_tc = dc.table_config;
+
+        this.csvProcessor = new CSVProcessor(data);
+        //listen for the data parsing complete event
+        this.csvProcessor.addEventListener('dataParsed', function(json){
+            console.log("DATA LOADED AND PARSED : ");
+            console.log(json.data);
+            d_tc.data = json.data;
+            sgrid.createTable(d_tc.data);
+        });
+        this.csvProcessor.addEventListener('dataParseError', function(err){
+            console.log('Error in data loading...'+err)
+        })
+    }
+
     createTable(data) {
         let table = new Table();
         //set the data if available
@@ -70,7 +79,23 @@ export default class SensiGrid {
             table.data = data
         }
         table.draw();
-         
+        //update the reference 
+        this._table = table;
+    }
+
+    setCSVData (csv) {
+        //CSV is not defined do nothing
+        if(!csv) {
+            console.log("NO CSV data provided! Nothing to do");
+            return;
+        }
+        //check if CSV processor exists or else instantiate
+        if(!this.csvProcessor) {
+            this._setCSVProcessor();
+        }
+
+        this.csvProcessor.loadData(csv);
+        
     }
 
 }
