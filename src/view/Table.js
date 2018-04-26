@@ -9,6 +9,8 @@ export default class Table {
     constructor() {
         //this is the original data 
         this._data = [];
+        this._headers = [];
+        this._rows = [];
         this._htmlTable;
         this._activeTable;
     }
@@ -22,6 +24,55 @@ export default class Table {
         if (data) {
             this._data = data;
         }
+    }
+
+    searchData (query, data_arr) {
+        let queries = query.split(':'),
+            headerStr= queries[0].toLowerCase(),
+            valueStr = queries[1].toLowerCase(),
+            headerIndex,
+            returnArr = [];
+
+        //debugger;
+
+        //lets find the index of the header
+        for (let i = 0, len = this._headers.length; i < len; i++) {
+            let header = this._headers[i].toLowerCase();
+            if(headerStr === header.toLowerCase()) {
+                headerIndex = i;
+                break;
+            }
+        }
+        /*this._headers.forEach(function(header, index){
+            if(headerStr === header.toLowerCase()) {
+                headerIndex = index;
+                break;
+            }
+        });*/
+
+        if(!isNaN(headerIndex)) {
+            //now look for the rows which has the search value
+            //in the specified index
+            this._rows.forEach(function(row, index){
+                let val = row[headerIndex];
+                if(val) {
+                    if(val.toLowerCase() === valueStr) {
+                        //debugger;
+                        returnArr.push(row);
+                    }
+                }
+            });
+        } else {
+            //The header could not be found either there 
+            //is a problem or we have to check all values 
+            //of all rows.
+        }
+
+        
+
+        return returnArr;
+
+
     }
 
     processData (data_arr) {
@@ -52,7 +103,9 @@ export default class Table {
         tb, paginator,
         processsedData;
 
-        processsedData = this.processData(this._data)
+        processsedData = this.processData(this._data);
+        this._headers = processsedData.headers;
+        this._rows = processsedData.rows;
         //Now instantiate the type of table required.
         // HTML vs Canvas etc.
         if(config.defaults.render_type === 'HTML') {

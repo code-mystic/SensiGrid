@@ -63,7 +63,7 @@ export default class SensiGrid {
         //listen for the data parsing complete event
         this.csvProcessor.addEventListener('dataParsed', function(json){
             console.log("DATA LOADED AND PARSED : ");
-            console.log(json.data);
+            console.log(json);
             d_tc.data = json.data;
             sgrid.createTable(d_tc.data);
         });
@@ -96,6 +96,16 @@ export default class SensiGrid {
 
         this.csvProcessor.loadData(csv);
         
+    }
+
+    /**
+     * API to search data in the table. It returns data 
+     * as an array
+     * @param {String} query The search string 
+     */
+    searchData (query) {
+        let result = this._table.searchData(query);
+        return result;
     }
 
 }
